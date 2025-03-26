@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>f毎日の顔写真記録アプリ</title>
+  <link rel="stylesheet" href="style.css">
+
+<!-- マニフェストファイルの読み込み -->
+<link rel="manifest" href="manifest.json">
+
+<!-- iOS用の設定 -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<!-- iOS用のホーム画面アイコン（後ほど用意します） -->
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+
+
+
+</head>
+<body>
+  <h1>face log app</h1>
+  
+  <!-- カメラ映像を表示するラッパー（オーバーレイ用に position: relative に設定） -->
+  <div class="video-wrapper">
+
+    <video id="video" width="640" height="480" autoplay playsinline></video>
+
+    <!-- 前回撮影画像をオーバーレイ表示（初期は非表示） -->
+    <img id="overlay" src="" alt="前回撮影した画像" style="display:none;">
+  </div>
+  
+  <br>
+  <!-- キャプチャ用のボタン -->
+  <button id="captureButton">写真を撮る</button>
+  <br>
+  <!-- 撮影した写真を表示するキャンバス（デバッグ用やプレビュー用） -->
+  <canvas id="canvas" width="640" height="480" style="display:none;"></canvas>
+  <br>
+  <!-- 写真を保存するためのダウンロードリンク -->
+  <a id="downloadLink" download="">写真を保存</a>
+  
+  <!-- ギャラリー表示領域 -->
+  <h2>撮影済みギャラリー</h2>
+  <div id="gallery"></div>
+
+
+  <!-- ギャラリー表示領域の下などに比較用エリアを追加 -->
+  <h2>写真の比較</h2>
+  <div id="comparison" style="text-align: center;"></div>
+  <button id="compareButton">比較する</button>
+
+  
+  <script src="script.js"></script>
+</body>
+</html>

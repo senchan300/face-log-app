@@ -1,0 +1,37 @@
+body {
+  text-align: center;
+  font-family: Arial, sans-serif;
+  margin: 20px;
+}
+
+/* videoとoverlayを同じ位置に重ねる */
+.video-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+video, #overlay {
+  width: auto;
+  height: auto;
+  border: 1px solid #ccc;
+}
+
+/* オーバーレイ画像の設定：半透明にしてガイドとして利用 */
+#overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0.5;
+  pointer-events: none; /* クリックなどを通過させる */
+}
+
+/* ギャラリーのスタイル */
+#gallery {
+  margin-top: 20px;
+}
+#gallery img {
+  margin: 10px;
+  border: 1px solid #ccc;
+  width: 320px;  /* 適宜サイズを調整 */
+  height: auto;
+}
