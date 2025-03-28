@@ -1,34 +1,40 @@
 /* 余白やズームの影響を受けにくくするため、html, bodyのマージン・パディングをリセット */
+h/* 既存のCSSの一部を修正 */
+
 html, body {
   margin: 0;
   padding: 0;
   width: 100%;
 }
 
-/* .video-wrapperを画面全体の幅に合わせる */
 .video-wrapper {
   position: relative;
-  width: 100vw;        /* ビューポート幅全体を使用 */
-  /* safe-areaを考慮する場合は、必要に応じてpaddingを追加できます */
-  /* 例: padding: env(safe-area-inset-left) env(safe-area-inset-right); */
+  width: 100vw;        /* ビューポート幅全体 */
+  margin: 0 auto;
 }
 
-/* videoとオーバーレイ画像は、親要素の幅いっぱいにリサイズし、ブロック要素にする */
+/* videoと#overlayにbox-sizingを適用 */
 video, #overlay {
-  display: block;      /* inline-blockよりも確実に幅いっぱいに広げる */
+  box-sizing: border-box;
+  display: block;
   width: 100%;
-  height: auto;        /* アスペクト比を維持 */
+  height: auto;
   border: 1px solid #ccc;
 }
 
-/* オーバーレイ画像の設定（videoと同じ位置・サイズにする） */
+/* オーバーレイ画像の設定を修正 */
 #overlay {
   position: absolute;
   top: 0;
   left: 0;
+  right: 0;
+  bottom: 0;
   opacity: 0.5;
   pointer-events: none;
+  /* borderが影響してサイズがずれる場合は、オーバーレイのborderを削除するか合わせる */
+  /* 例: border: none; */
 }
+
 
 /* ギャラリーのスタイル */
 #gallery {
