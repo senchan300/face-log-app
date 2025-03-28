@@ -4,25 +4,27 @@ body {
   margin: 20px;
 }
 
-/* videoとoverlayを同じ位置に重ねる */
+/* 画面幅に合わせるために.video-wrapperの幅を100%に設定 */
 .video-wrapper {
   position: relative;
-  display: inline-block;
+  width: 100%;          /* 画面いっぱいの横幅に合わせる */
+  /* 最大幅を指定しないことで、iPhoneの画面サイズにぴったり合わせる */
 }
 
+/* videoとオーバーレイ画像は、親要素の幅いっぱいにリサイズし、アスペクト比を保つ */
 video, #overlay {
-  width: auto;
+  width: 100%;
   height: auto;
   border: 1px solid #ccc;
 }
 
-/* オーバーレイ画像の設定：半透明にしてガイドとして利用 */
+/* オーバーレイ画像の設定 */
 #overlay {
   position: absolute;
   top: 0;
   left: 0;
   opacity: 0.5;
-  pointer-events: none; /* クリックなどを通過させる */
+  pointer-events: none;
 }
 
 /* ギャラリーのスタイル */
