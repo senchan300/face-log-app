@@ -4,34 +4,37 @@ body {
   margin: 20px;
 }
 
-/* videoとoverlayを同じ位置に重ねる */
+/* video-wrapperを画面幅に合わせる */
 .video-wrapper {
   position: relative;
-  display: inline-block;
+  width: 100%;          /* 画面幅いっぱいに広げる */
+  max-width: 640px;     /* 必要に応じて最大幅を指定 */
+  margin: 0 auto;       /* 中央に配置 */
 }
 
+/* videoとオーバーレイは親の幅に合わせてリサイズ */
 video, #overlay {
-  width: auto;
-  height: auto;
+  width: 100%;
+  height: auto;         /* アスペクト比を保ちながら高さ自動調整 */
   border: 1px solid #ccc;
 }
 
-/* オーバーレイ画像の設定：半透明にしてガイドとして利用 */
+/* オーバーレイ画像の設定 */
 #overlay {
   position: absolute;
   top: 0;
   left: 0;
   opacity: 0.5;
-  pointer-events: none; /* クリックなどを通過させる */
+  pointer-events: none;
 }
 
-/* ギャラリーのスタイル */
+/* ギャラリーのスタイル（変更なし） */
 #gallery {
   margin-top: 20px;
 }
 #gallery img {
   margin: 10px;
   border: 1px solid #ccc;
-  width: 320px;  /* 適宜サイズを調整 */
+  width: 320px;
   height: auto;
 }
