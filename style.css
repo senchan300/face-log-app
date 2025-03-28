@@ -1,24 +1,27 @@
-body {
-  text-align: center;
-  font-family: Arial, sans-serif;
-  margin: 20px;
+/* 余白やズームの影響を受けにくくするため、html, bodyのマージン・パディングをリセット */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
 }
 
-/* 画面幅に合わせるために.video-wrapperの幅を100%に設定 */
+/* .video-wrapperを画面全体の幅に合わせる */
 .video-wrapper {
   position: relative;
-  width: 100%;          /* 画面いっぱいの横幅に合わせる */
-  /* 最大幅を指定しないことで、iPhoneの画面サイズにぴったり合わせる */
+  width: 100vw;        /* ビューポート幅全体を使用 */
+  /* safe-areaを考慮する場合は、必要に応じてpaddingを追加できます */
+  /* 例: padding: env(safe-area-inset-left) env(safe-area-inset-right); */
 }
 
-/* videoとオーバーレイ画像は、親要素の幅いっぱいにリサイズし、アスペクト比を保つ */
+/* videoとオーバーレイ画像は、親要素の幅いっぱいにリサイズし、ブロック要素にする */
 video, #overlay {
+  display: block;      /* inline-blockよりも確実に幅いっぱいに広げる */
   width: 100%;
-  height: auto;
+  height: auto;        /* アスペクト比を維持 */
   border: 1px solid #ccc;
 }
 
-/* オーバーレイ画像の設定 */
+/* オーバーレイ画像の設定（videoと同じ位置・サイズにする） */
 #overlay {
   position: absolute;
   top: 0;
