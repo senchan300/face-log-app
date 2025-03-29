@@ -2,34 +2,33 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>f毎日の顔写真記録アプリ</title>
   <link rel="stylesheet" href="style.css">
 
-  <!-- face-api.js の読み込み -->
-  <script defer src="https://unpkg.com/face-api.js"></script>
+<!-- マニフェストファイルの読み込み -->
+<link rel="manifest" href="manifest.json">
 
-  <!-- マニフェストファイルの読み込み -->
-  <link rel="manifest" href="manifest.json">
+<!-- iOS用の設定 -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<!-- iOS用のホーム画面アイコン（後ほど用意します） -->
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 
-  <!-- iOS用の設定 -->
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <!-- iOS用のホーム画面アイコン（後ほど用意します） -->
-  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+
+
 </head>
 <body>
   <h1>face log app</h1>
   
-  <!-- カメラ映像を表示するラッパ（オーバーレイ用に position: relative に設定） -->
+  <!-- カメラ映像を表示するラッパー（オーバーレイ用に position: relative に設定） -->
   <div class="video-wrapper">
-    <video id="video" autoplay playsinline></video>
+
+    <video id="video" width="640" height="480" autoplay playsinline></video>
 
     <!-- 前回撮影画像をオーバーレイ表示（初期は非表示） -->
     <img id="overlay" src="" alt="前回撮影した画像" style="display:none;">
-
-    <!-- ▼ 顔検出用の枠を表示する要素を追加 ▼ -->
-    <div id="faceBox"></div>
   </div>
   
   <br>
@@ -46,11 +45,13 @@
   <h2>撮影済みギャラリー</h2>
   <div id="gallery"></div>
 
+
   <!-- ギャラリー表示領域の下などに比較用エリアを追加 -->
   <h2>写真の比較</h2>
   <div id="comparison" style="text-align: center;"></div>
   <button id="compareButton">比較する</button>
 
+  
   <script src="script.js"></script>
 </body>
 </html>
