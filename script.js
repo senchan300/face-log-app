@@ -7,6 +7,9 @@ const downloadLink = document.getElementById('downloadLink');
 const gallery = document.getElementById('gallery');
 const context = canvas.getContext('2d');
 
+// ▼ 顔検出用の要素
+const faceBox = document.getElementById('faceBox');
+
 // 比較用の要素（HTMLに追加済み）
 const compareButton = document.getElementById('compareButton');
 const comparisonDiv = document.getElementById('comparison');
@@ -95,6 +98,49 @@ function updateGalleryUI() {
   });
 }
 
+// ▼ Face-api.js のモデルを読み込む
+async function loadModels() {
+  // プロジェクト直下の「models」フォルダに tinyFaceDetector モデルを配置しておく
+  await faceapi.nets.tinyFaceDetector.loadFromUri('/models');
+  console.log("Face-api.jsモデル読み込み完了");
+}
+
+// ▼ 顔検出を開始する関数
+function startFaceDetection() {
+  // Tiny Face Detector のオプション
+  const options = new faceapi.TinyFaceDetectorOptions();
+
+  // 200msごとに顔検出を実行
+  setInterval(async () => {
+    if (video.readyState === 4) {
+      // 単一の顔だけ使うなら detectSingleFace の方が分かりやすい
+      const detection = await faceapi.detectSingleFace(video, options);
+      if (detection) {
+        // 検出された顔の座標
+        const box = detection.box;
+        
+        // ▼ 実際の表示サイズを取得
+        const displayedWidth = video.offsetWidth;   // video要素がCSSで表示されている幅
+        const displayedHeight = video.offsetHeight; // video要素がCSSで表示されている高さ
+        
+        // ▼ カメラのネイティブ解像度に対するスケールを計算
+        const scaleX = displayedWidth / video.videoWidth;
+        const scaleY = displayedHeight / video.videoHeight;
+
+        // ▼ スケーリングして #faceBox に適用
+        faceBox.style.left   = (box.x * scaleX) + 'px';
+        faceBox.style.top    = (box.y * scaleY) + 'px';
+        faceBox.style.width  = (box.width * scaleX) + 'px';
+        faceBox.style.height = (box.height * scaleY) + 'px';
+        faceBox.style.display = 'block';  // 顔が検出されれば表示
+      } else {
+        // 顔が検出されない場合は非表示
+        faceBox.style.display = 'none';
+      }
+    }
+  }, 200);
+}
+
 // カメラ映像の開始
 function startCamera() {
   if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
@@ -157,11 +203,17 @@ function capturePhoto() {
 }
 
 // ページ読み込み時の処理
-window.addEventListener('load', function() {
+window.addEventListener('load', async function() {
+  // ▼ face-api.jsのモデルをロード
+  await loadModels();
+
+  // ▼ カメラ起動
   startCamera();
+
+  // ▼ ローカルストレージからギャラリーを読み込み
   loadGallery();
   
-  // videoのメタデータ読み込み後、CSS適用後の表示サイズ（clientWidth/Height）でキャンバスとオーバーレイを調整
+  // ▼ videoのメタデータ読み込み後に canvas と overlay を調整
   video.addEventListener('loadedmetadata', function() {
     const width = video.clientWidth;
     const height = video.clientHeight;
@@ -170,16 +222,19 @@ window.addEventListener('load', function() {
     overlay.style.width = width + 'px';
     overlay.style.height = height + 'px';
   });
-});
 
-// ウィンドウリサイズ時にも調整（ホーム画面モードなどでサイズ変化する場合に対応）
-window.addEventListener('resize', function() {
-  const width = video.clientWidth;
-  const height = video.clientHeight;
-  canvas.width = width;
-  canvas.height = height;
-  overlay.style.width = width + 'px';
-  overlay.style.height = height + 'px';
+  // ▼ ウィンドウリサイズ時にも再調整
+  window.addEventListener('resize', function() {
+    const width = video.clientWidth;
+    const height = video.clientHeight;
+    canvas.width = width;
+    canvas.height = height;
+    overlay.style.width = width + 'px';
+    overlay.style.height = height + 'px';
+  });
+
+  // ▼ 顔検出開始
+  startFaceDetection();
 });
 
 // キャプチャボタンがクリックされたら写真撮影

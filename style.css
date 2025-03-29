@@ -1,6 +1,4 @@
 /* 余白やズームの影響を受けにくくするため、html, bodyのマージン・パディングをリセット */
-h/* 既存のCSSの一部を修正 */
-
 html, body {
   margin: 0;
   padding: 0;
@@ -13,7 +11,7 @@ html, body {
   margin: 0 auto;
 }
 
-/* videoと#overlayにbox-sizingを適用 */
+/* video, #overlay に box-sizing を適用 */
 video, #overlay {
   box-sizing: border-box;
   display: block;
@@ -22,7 +20,14 @@ video, #overlay {
   border: 1px solid #ccc;
 }
 
-/* オーバーレイ画像の設定を修正 */
+/* ▼ 顔検出用の枠を表示する要素 */
+#faceBox {
+  position: absolute;
+  border: 2px dashed red;
+  pointer-events: none; /* 枠をクリックできないように */
+  display: none;        /* 顔が検出されるまで非表示 */
+}
+
 #overlay {
   position: absolute;
   top: 0;
@@ -31,10 +36,7 @@ video, #overlay {
   bottom: 0;
   opacity: 0.5;
   pointer-events: none;
-  /* borderが影響してサイズがずれる場合は、オーバーレイのborderを削除するか合わせる */
-  /* 例: border: none; */
 }
-
 
 /* ギャラリーのスタイル */
 #gallery {
@@ -45,4 +47,4 @@ video, #overlay {
   border: 1px solid #ccc;
   width: 320px;  /* 適宜サイズを調整 */
   height: auto;
-}   
+}
