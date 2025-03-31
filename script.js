@@ -80,20 +80,29 @@ function updateGalleryUI() {
         <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 1 1 0-2H5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1h2.5a1 1 0 0 1 1 1zM5 4v9h6V4H5z"/>
       </svg>
       Delete`;
-    deleteBtn.addEventListener('click', function() {
+    deleteBtn.addEventListener('click', function () {
       photos.splice(index, 1);
       localStorage.setItem('photoGallery', JSON.stringify(photos));
       updateGalleryUI();
-      if (overlay.src === photo.data) {
-        overlay.style.display = 'none';
-      }
     });
     actionWrapper.appendChild(deleteBtn);
 
     container.appendChild(actionWrapper);
     gallery.appendChild(container);
   });
+
+  // ✅ 最新の写真を overlay に設定（←ここが今回の追加）
+  if (photos.length > 0) {
+    const latestPhoto = photos[photos.length - 1];
+    overlay.src = latestPhoto.data;
+    overlay.style.display = 'block';
+    overlay.style.width = video.clientWidth + 'px';
+    overlay.style.height = video.clientHeight + 'px';
+  } else {
+    overlay.style.display = 'none';
+  }
 }
+
 
 function startCamera() {
   if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
