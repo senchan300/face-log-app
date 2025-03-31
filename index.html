@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>毎日の顔写真記録アプリ</title>
+  <title>Face Log App</title>
   <link rel="stylesheet" href="style.css">
   <link rel="manifest" href="manifest.json">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -26,16 +26,15 @@
     <p class="status-text">Photo saved to gallery</p>
 
     <canvas id="canvas" style="display:none;"></canvas>
-    <a id="downloadLink" download="" class="download-button">Download</a>
 
     <section class="gallery-section">
       <h2 class="gallery-title">Gallery</h2>
       <div id="gallery">
-        <!-- Sample Image Box -->
         <div class="gallery-item">
-          <img src="" alt="Captured face">
+          <img src="your-photo.jpg" alt="Captured face">
+          <div class="timestamp">2025-03-29 14:51:49</div>
           <div class="gallery-actions">
-            <a href="#" class="download-button">
+            <a href="your-photo.jpg" class="download-button" download>
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                 <path d="M.5 9.9v4.6c0 .3.2.5.5.5h14c.3 0 .5-.2.5-.5V9.9c0-.3-.2-.5-.5-.5s-.5.2-.5.5v4.1H1V9.9c0-.3-.2-.5-.5-.5s-.5.2-.5.5z"/>
                 <path d="M7.5 1v9.793L4.354 7.646a.5.5 0 1 0-.708.708l4 4a.5.5 0 0 0 .708 0l4-4a.5.5 0 1 0-.708-.708L8.5 10.793V1a.5.5 0 0 0-1 0z"/>
