@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -5,11 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <title>毎日の顔写真記録アプリ</title>
   <link rel="stylesheet" href="style.css">
-
-  <!-- マニフェストファイルの読み込み -->
   <link rel="manifest" href="manifest.json">
-
-  <!-- iOS用の設定 -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -22,24 +19,45 @@
   <main>
     <div class="video-wrapper">
       <video id="video" autoplay playsinline></video>
-      <img id="overlay" src="" alt="前回撮影した画像" style="display:none;">
+      <img id="overlay" src="" alt="Previous shot" style="display:none;">
     </div>
 
-    <button id="captureButton" class="primary-button">顔を撮る</button>
-    <p class="status-text">顔を保存しました 撮影済みギャラリー</p>
+    <button id="captureButton" class="primary-button">Take Photo</button>
+    <p class="status-text">Photo saved to gallery</p>
 
     <canvas id="canvas" style="display:none;"></canvas>
-    <a id="downloadLink" download="" class="download-link">ダウンロード</a>
+    <a id="downloadLink" download="" class="download-button">Download</a>
 
     <section class="gallery-section">
-      <h2 class="gallery-title">Gallery</h2> 
-      <div id="gallery"></div>
+      <h2 class="gallery-title">Gallery</h2>
+      <div id="gallery">
+        <!-- Sample Image Box -->
+        <div class="gallery-item">
+          <img src="" alt="Captured face">
+          <div class="gallery-actions">
+            <a href="#" class="download-button">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M.5 9.9v4.6c0 .3.2.5.5.5h14c.3 0 .5-.2.5-.5V9.9c0-.3-.2-.5-.5-.5s-.5.2-.5.5v4.1H1V9.9c0-.3-.2-.5-.5-.5s-.5.2-.5.5z"/>
+                <path d="M7.5 1v9.793L4.354 7.646a.5.5 0 1 0-.708.708l4 4a.5.5 0 0 0 .708 0l4-4a.5.5 0 1 0-.708-.708L8.5 10.793V1a.5.5 0 0 0-1 0z"/>
+              </svg>
+              Download
+            </a>
+            <button class="delete-button">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M5.5 5.5a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0v-6a.5.5 0 0 1 .5-.5zm5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0v-6a.5.5 0 0 1 .5-.5z"/>
+                <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 1 1 0-2H5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1h2.5a1 1 0 0 1 1 1zM5 4v9h6V4H5z"/>
+              </svg>
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
     </section>
 
     <section class="comparison-section">
-      <h2>写真の比較</h2>
+      <h2>Compare Photos</h2>
       <div id="comparison" class="comparison-area"></div>
-      <button id="compareButton" class="secondary-button">比較する</button>
+      <button id="compareButton" class="secondary-button">Compare</button>
     </section>
   </main>
 
